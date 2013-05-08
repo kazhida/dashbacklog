@@ -14,6 +14,9 @@ gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
+.idea/dictionaries/kazhida.xml
+.idea/misc.xml
+.idea/workspace.xml
 
 # Eclipse project files
 .classpath
