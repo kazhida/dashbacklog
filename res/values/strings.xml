@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">dashbacklog</string>
+    <string name="app_name">&#39;backlog</string>
+    <string name="summaries">Summaries</string>
+    <string name="time_line">TimeLine</string>
 </resources>
