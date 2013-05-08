@@ -10,14 +10,15 @@
     <string name="key_password">KEY_PASSWORD</string>
     <string name="key_displayed">KEY_DISPLAYED</string>
 
-    <string name="prefs_title">Preferences</string>
+    <string name="prefs">Preferences</string>
     <string name="space_id">Space ID</string>
     <string name="user_id">User ID</string>
     <string name="password">Password</string>
+    <string name="backlog_domain">.backlog.jp</string>
+    <string name="need_register">First, You need to register account information.</string>
+    <string name="register">Register</string>
 
-    <string name="prefs_summary">Preferences for Backlog.jp</string>
-    <string name="space_id_summary">Space ID</string>
-    <string name="user_id_summary">User ID</string>
-    <string name="password_summary">Password</string>
+    <string name="reload">Reload</string>
+    <string name="post">Post</string>
 
 </resources>
