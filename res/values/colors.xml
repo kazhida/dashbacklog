@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bg_actionbar">#009900</color>
+    <color name="text_actionbar">#ffffff</color>
+
     <color name="bg_root">#ffffff</color>
+    <color name="bg_selected">#ffffff</color>
     <color name="bg_unselected">#cccccc</color>
     <color name="tab_dummy_1">#ffccff</color>
     <color name="tab_dummy_2">#ccffff</color>
+
 </resources>

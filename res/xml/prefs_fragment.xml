@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<preference-headers
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header android:fragment="com.abplus.dashbacklog.PrefsFragment"
+            android:title="@string/prefs_title"
+            android:summary="@string/prefs_summary"
+            />
+</preference-headers>

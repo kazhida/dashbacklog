@@ -4,7 +4,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background=""
+        android:background="@color/bg_root"
         >
 
     <ListView
@@ -15,6 +15,7 @@
             />
 
     <LinearLayout
+            android:id="@+id/tabs"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -48,8 +49,6 @@
                 android:background="@color/tab_dummy_2"
                 />
     </LinearLayout>
-
-
 
 </LinearLayout>
 
