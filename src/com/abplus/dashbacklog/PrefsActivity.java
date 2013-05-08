@@ -59,7 +59,7 @@ public class PrefsActivity extends Activity {
 
     private String getEditText(int id) {
         EditText edit = (EditText)findViewById(id);
-        return edit.getText().toString();
+        return edit.getText().toString().trim();
     }
 
     private SharedPreferences getPreferences() {

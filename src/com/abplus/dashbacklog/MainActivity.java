@@ -1,12 +1,15 @@
 package com.abplus.dashbacklog;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.*;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -16,8 +19,6 @@ public class MainActivity extends Activity {
         COMMENTS
     }
 
-    private BacklogIO backlog = null;
-    private BackLogCache cache = null;
     private ListOf which = ListOf.SUMMARIES;
     private MenuItem postItem = null;
 
@@ -48,15 +49,15 @@ public class MainActivity extends Activity {
         super.onResume();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String space_id = prefs.getString(getString(R.string.key_space_id), "");
-        String user_id = prefs.getString(getString(R.string.key_user_id), "");
+        String spaceId = prefs.getString(getString(R.string.key_space_id), "");
+        String userId = prefs.getString(getString(R.string.key_user_id), "");
         String password = prefs.getString(getString(R.string.key_password), "");
-        int displayed = prefs.getInt(getString(R.string.key_displayed), -1);
+        final int displayed = prefs.getInt(getString(R.string.key_displayed), -1);
 
-        if (space_id.length() == 0 || user_id.length() == 0 || password.length() == 0) {
+        if (spaceId.length() == 0 || userId.length() == 0 || password.length() == 0) {
+            //  未登録なら設定画面
             showPreferences();
         } else {
-            backlog = new BacklogIO(space_id, user_id, password);
             if (displayed != ListOf.TIME_LINE.ordinal()) {
                 showSummaries();
             } else {
@@ -76,6 +77,18 @@ public class MainActivity extends Activity {
         editor.commit();
     }
 
+    private ProgressDialog showWait(String msg) {
+        ProgressDialog result = new ProgressDialog(this);
+        result.setMessage(msg);
+        result.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        result.show();
+        return result;
+    }
+
+    private void showError(int msg_id, String msg) {
+        Toast.makeText(this, getString(msg_id) + "  " + msg, Toast.LENGTH_LONG).show();
+    }
+
     private void showPreferences() {
         Intent intent=new Intent(this, PrefsActivity.class);
         intent.setAction(Intent.ACTION_VIEW);
@@ -87,7 +100,7 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.tab_summaries).setBackgroundColor(getResources().getColor(R.color.bg_selected));
         findViewById(R.id.tab_time_line).setBackgroundColor(getResources().getColor(R.color.bg_unselected));
-        postItem.setVisible(false);
+        if (postItem != null) postItem.setVisible(false);
     }
 
     private void showTimeLine() {
@@ -95,13 +108,13 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.tab_summaries).setBackgroundColor(getResources().getColor(R.color.bg_unselected));
         findViewById(R.id.tab_time_line).setBackgroundColor(getResources().getColor(R.color.bg_selected));
-        postItem.setVisible(false);
+        if (postItem != null) postItem.setVisible(false);
     }
 
     private void showComments(int commentId) {
         which = ListOf.COMMENTS;
 
-        postItem.setVisible(true);
+        if (postItem != null) postItem.setVisible(true);
     }
 
     @Override

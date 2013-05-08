@@ -111,87 +111,42 @@ public class BacklogIO {
         }).start();
     }
 
-    public void createIssue(String summary, String description,
-                            IdHolder project, IdHolder issueType, IdHolder component, IdHolder priority,
-                            ResponseNotify notify) {
+    public void loadSummaries(ResponseNotify notify) {
         StringBuilder xml = new StringBuilder();
 
         xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         xml.append("<methodCall>");
-        xml.append("<methodName>backlog.createIssue</methodName>");
-        xml.append("<params>");
-        xml.append("<param>");
-        xml.append("<value>");
-        xml.append("<struct>");
-
-        xml.append("<member>");
-        xml.append("<name>projectId</name>");
-        xml.append("<value><int>").append(project.getId()).append("</int></value>");
-        xml.append("</member>");
-
-        xml.append("<member>");
-        xml.append("<name>summary</name>");
-        xml.append("<value><string>").append(TextUtils.htmlEncode(summary)).append("</string></value>");
-        xml.append("</member>");
-
-        if (description != null && ! description.isEmpty()) {
-            xml.append("<member>");
-            xml.append("<name>description</name>");
-            xml.append("<value><string>").append(TextUtils.htmlEncode(description)).append("</string></value>");
-            xml.append("</member>");
-        }
-
-        xml.append("<member>");
-        xml.append("<name>issueTypeId</name>");
-        xml.append("<value><int>").append(issueType.getId()).append("</int></value>");
-        xml.append("</member>");
-
-        if (component != null) {
-            xml.append("<member>");
-            xml.append("<name>component</name>");
-            xml.append("<value><int>").append(component.getId()).append("</int></value>");
-            xml.append("</member>");
-        }
-
-        xml.append("<member>");
-        xml.append("<name>priorityId</name>");
-        xml.append("<value><int>").append(priority.getId()).append("</int></value>");
-        xml.append("</member>");
-
-        xml.append("</struct>");
-        xml.append("</value>");
-        xml.append("</param>");
-        xml.append("</params>");
-        xml.append("</methodCall>");
-
-        post(xml.toString(), notify);
-    }
-
-    public void loadProjects(ResponseNotify notify) {
-        StringBuilder xml = new StringBuilder();
-
-        xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-        xml.append("<methodCall>");
-        xml.append("<methodName>backlog.getProjects</methodName>");
+        xml.append("<methodName>backlog.getProjectSummaries</methodName>");
         xml.append("<params />");
         xml.append("</methodCall>");
 
         post(xml.toString(), notify);
     }
 
-    public void loadIssueTypes(int projectId, ResponseNotify notify) {
+    public void loadTimeLine(ResponseNotify notify) {
         StringBuilder xml = new StringBuilder();
 
         xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         xml.append("<methodCall>");
-        xml.append("<methodName>backlog.getIssueTypes</methodName>");
+        xml.append("<methodName>backlog.getTimeline</methodName>");
+        xml.append("<params />");
+        xml.append("</methodCall>");
+
+        post(xml.toString(), notify);
+    }
+
+    public void loadComments(int issueId, ResponseNotify notify) {
+        StringBuilder xml = new StringBuilder();
+
+        xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        xml.append("<methodCall>");
+        xml.append("<methodName>backlog.getComments</methodName>");
         xml.append("<params>");
         xml.append("<param>");
         xml.append("<value>");
         xml.append("<int>");
-        xml.append(projectId);
+        xml.append(issueId);
         xml.append("</int>");
-        xml.append("");
         xml.append("</value>");
         xml.append("</param>");
         xml.append("</params>");
@@ -200,19 +155,18 @@ public class BacklogIO {
         post(xml.toString(), notify);
     }
 
-    public void loadComponents(int projectId, ResponseNotify notify) {
+    public void loadUser(String userId, ResponseNotify notify) {
         StringBuilder xml = new StringBuilder();
 
         xml.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
         xml.append("<methodCall>");
-        xml.append("<methodName>backlog.getComponents</methodName>");
+        xml.append("<methodName>backlog.getUser</methodName>");
         xml.append("<params>");
         xml.append("<param>");
         xml.append("<value>");
-        xml.append("<int>");
-        xml.append(projectId);
-        xml.append("</int>");
-        xml.append("");
+        xml.append("<string>");
+        xml.append(userId);
+        xml.append("</string>");
         xml.append("</value>");
         xml.append("</param>");
         xml.append("</params>");
